@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-lg-6">
     <div class="box-element" id="form-wrapper">
-      <div id="form">
+      <form id="form">
         <div id="user-info">
           <div class="form-field">
             <input
@@ -69,11 +69,12 @@
           type="submit"
           value="Continue"
         />
-      </div>
+      </form>
     </div>
     <br />
     <div class="box-element hidden" id="payment-info">
       <small>Paypal Options</small>
+      <button id="make-payment">Make Payment</button>
     </div>
   </div>
   <div class="col-lg-6">
@@ -106,12 +107,22 @@
     document.getElementById("shipping-info").innerHTML = "";
   }
 
-  const form = document.getElementById("form");
+  let form = document.getElementById("form");
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     console.log("Form submitted");
     document.getElementById("form-button").classList.add("hidden");
     document.getElementById("payment-info").classList.remove("hidden");
   });
+
+  document
+    .getElementById("make-payment")
+    .addEventListener("click", function (e) {
+      submitFormData();
+    });
+
+  function submitFormData() {
+    console.log("Payment button clicked");
+  }
 </script>
 {% endblock content %}
