@@ -51,14 +51,18 @@
           <p class="quantity">x{{item.quantity}}</p>
           <div class="quantity">
             <img
-              class="chg-quantity"
               src="{% static 'images/arrow-up.png'%}"
               alt="Arrow up"
+              class="chg-quantity update-cart"
+              data-product="{{item.product.id}}"
+              data-action="add"
             />
             <img
-              class="chg-quantity"
               src="{% static 'images/arrow-down.png'%}"
               alt="Arrow down"
+              class="chg-quantity update-cart"
+              data-product="{{item.product.id}}"
+              data-action="remove"
             />
           </div>
         </div>
