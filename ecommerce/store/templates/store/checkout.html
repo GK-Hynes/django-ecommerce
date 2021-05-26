@@ -102,6 +102,7 @@
 </div>
 <script>
   const shipping = "{{order.shipping}}";
+  const total = "{{order.get_cart_total|floatformat:2}}";
 
   if (shipping == "False") {
     document.getElementById("shipping-info").innerHTML = "";
@@ -134,6 +135,50 @@
 
   function submitFormData() {
     console.log("Payment button clicked");
+
+    const userFormData = {
+      name: null,
+      email: null,
+      total: total
+    };
+
+    const shippingInfo = {
+      address: null,
+      city: null,
+      state: null,
+      zipcode: null
+    };
+
+    if (shipping != "False") {
+      shippingInfo.address = form.address.value;
+      shippingInfo.city = form.city.value;
+      shippingInfo.state = form.state.value;
+      shippingInfo.zipcode = form.zipcode.value;
+    }
+
+    if (user == "AnonymousUser") {
+      userFormData.name = form.name.value;
+      userFormData.email = form.name.email;
+    }
+
+    const url = "/process_order/";
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken
+      },
+      body: JSON.stringify({ form: userFormData, shipping: shippingInfo })
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        alert("Transaction Completed");
+        window.location.href = "{% url 'store' %}";
+      });
+
+    console.log("Shipping Info: ", shippingInfo);
+    console.log("User Info: ", userFormData);
   }
 </script>
 {% endblock content %}
