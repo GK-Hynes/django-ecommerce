@@ -4,7 +4,6 @@ import json
 import datetime
 from .models import *
 
-# Create your views here.
 def store(request):
     if request.user.is_authenticated:
         customer = request.user.customer
@@ -97,7 +96,7 @@ def processOrder(request):
                 address=data['shipping']['address'],
                 city=data['shipping']['city'],
                 state=data['shipping']['state'],
-                zipcode=data['shipping']['zipcode']
+                zipcode=data['shipping']['zipcode'],
             )
     else:
         print('User is not logged in')
